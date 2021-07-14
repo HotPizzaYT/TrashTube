@@ -2,8 +2,8 @@
 // For actions like: Like, Disklike, Comment
 // Like action
 if(isset($_GET['action'])) {
+	if($_GET['id'] === "like") {
 if(isset($_GET["id"])){
-  if($_GET['id'] === "like") {
 if(file_exists("ids/" . $_GET["id"] . ".json")){
 	// File exists
 	$json = file_get_contents("ids/" . $_GET["id"] . ".json");
