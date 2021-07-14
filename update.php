@@ -1,9 +1,10 @@
 <?php
 $current = "1";
 if(isset($_GET['debug'])) {
-if(!$latest = file_get_contents("http://localhost/ttserver/latest.php")) {
+if(!file_get_contents("http://localhost/ttserver/latest.php")) {
 die("The update server is down. Please try again later.");
 }
+    // too lazy to add the code here
 }
 else {
 $latest = file_get_contents("http://sudaox.tech/ttserver/latest.php");
