@@ -1,4 +1,5 @@
 <?php
+$current = "1";
 if(isset($_GET['debug'])) {
 $latest = file_get_contents("http://localhost/ttserver/latest.php");
 }
