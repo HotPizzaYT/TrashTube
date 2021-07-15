@@ -100,48 +100,34 @@ function generateVideoID($length = 16){
         echo "No video selected";
     }
 
-    if(isset($_POST["location"])){
+    if($_POST["location"] !== ""){
         // That's fine.
     } else {
         $_POST["location"] = "Not set";
     }
+    if($isConfirmedVideo){
     $path = "videos/";
     $path = $path . basename( $_FILES['video']['name']);
 
-    $comments = array("poster"=>"HxOr1337", "content"=>"This is a nice video!", "likes"=>1, "dislikes"=>0, "id"=>"autoBotComment-1");
-    $commentData = array(0=>$comments);
-
-    /*
-    To add a comment, simply do this
-
-
-    function addComment($id, $author, $content){
-    $json = file_get_contents("ids/" . $id . ".json");
-	$jsonD = json_decode($json, true);
-    $cdata = $jsonD["comments"];
-    $cmt = array("poster"=>$author, "content"=>$content, "likes"=>0, "dislikes"=>0);
-    push($cmt, $jsonD["comments"]);
-    $commentFix = json_encode($jsonD, true);
-    file_put_contents("ids/" . $_GET["id"]. ".json", $commentFix);
-    
-    }
-
-
-    I think...
-    */
-
+    // $comments = array();
+    // Create a blank array with no comments.
+    $commentData = array();
     $videoData = array("title"=>$_POST["title"], "desc"=>$_POST["desc"], "location"=>$_POST["location"], "src"=>$path, "likes"=>0, "dislikes"=>0, "views"=>0, "comments"=>$commentData);
 
-    $idlength = rand(8, 32);
+    $idlength = rand(8, 16);
 
     $videoId = generateVideoID($idlength);
     $vidDstring = json_encode($videoData);
     file_put_contents("ids/". $videoId . ".json", $vidDstring);
 
-    
+
+    } else {
+        echo "Your video has not been uploaded. REASON: ";
+    }
     
     if($isConfirmedVideo){
         if(move_uploaded_file($_FILES['video']['tmp_name'], $path)) {
+        // Also start thumbnail capture proccess here.
             echo "Video uploaded <a href='view.php?id=". $videoId . "'>here</a>" ;
         } else{
             echo "There was an error uploading the file, please try again!";
