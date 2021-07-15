@@ -95,6 +95,8 @@
         </center>
     </div>
 <?php
+
+$url = '~(?:(https?)://([^\s<]+)|(www\.[^\s<]+?\.[^\s<]+))(?<![\.,:])~i';
 if(isset($_GET["id"])){
 
 if(file_exists("ids/" . $_GET["id"] . ".json")){
@@ -113,10 +115,16 @@ if(file_exists("ids/" . $_GET["id"] . ".json")){
 	$vt = $jsonD["title"];
     $desc = htmlspecialchars($jsonD["desc"]);
 	$vd = str_replace("\n", "<br />", $desc);
+    // AutoHyperLink
+    $vd = preg_replace($url, '<a href="$0" target="_blank" title="$0">$0</a>', $vd);
 	$src = $jsonD["src"];
 	$dislikes = $jsonD["dislikes"];
 	$likes = $jsonD["likes"];
 	$views = $jsonD["views"];
+    $loc = $jsonD["location"];
+    if($loc === ""){
+        $loc = "No location set for this video.";
+    }
     $commentsSet = false;
     if(isset($jsonD["comments"])){
     $comments = $jsonD["comments"];
@@ -129,7 +137,7 @@ if(file_exists("ids/" . $_GET["id"] . ".json")){
 
 	$htmlcontent = "<h1>" . htmlspecialchars($vt) . "</h1><div style='text-align: center;'><video style='width: 50%; text-align: center;' src='" . $src . "' controls='' uk-video=''>Whoops! Your browser doesn't support video files.</video></div><br /><br /><br /><div style='float: right; text-align: right;'>Likes :" . $likes . ", Dislikes: " . $dislikes . "<br />"
     
-    . $views . " views<br /><button onclick='" . $lfun . "'>Like</button> - <button onclick='" . $dlfun . "'>Disike</button></div><b>Description:</b> <br />" . $vd;
+    . $views . " views<br /><button onclick='" . $lfun . "'>Like</button> - <button onclick='" . $dlfun . "'>Disike</button></div><b>Location:</b> " . $loc . "<br /><b>Description:</b> <br />" . $vd;
 	echo $htmlcontent;
 
     if($commentsSet){
@@ -137,7 +145,12 @@ if(file_exists("ids/" . $_GET["id"] . ".json")){
         $commentSection = "<h1>Comments (" . $commentAmount . ")</h1><hr>";
         for($x = 0; $x < $commentAmount; $x++){
         // Nobody can hijack comment section.
-            $commentSection .= "<hr><h3>" . htmlspecialchars($comments[$x]["poster"]) . "</h3>" . htmlspecialchars($comments[$x]["content"]);
+        $content = htmlspecialchars($comments[$x]["content"]);
+        // Hyperlink parser
+        // $url = '~(?:(https?)://([^\s<]+)|(www\.[^\s<]+?\.[^\s<]+))(?<![\.,:])~i';
+        
+        $conurl = preg_replace($url, '<a href="$0" target="_blank" title="$0">$0</a>', $comments[$x]["content"]);
+            $commentSection .= "<hr><h3>" . htmlspecialchars($comments[$x]["poster"]) . "</h3>" . $conurl;
         }
         echo $commentSection;
 
@@ -147,6 +160,7 @@ if(file_exists("ids/" . $_GET["id"] . ".json")){
 
 } else {
 	echo "We're sorry, but that video does not exist.";
+    $commentsSet = false;
 }
 } else {
     // Edit this if you want a default video for introduction on the site.
