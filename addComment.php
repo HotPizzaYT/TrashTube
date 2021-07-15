@@ -7,9 +7,9 @@
     $json = file_get_contents("ids/" . $id . ".json");
 	$jsonD = json_decode($json, true);
     $cdata = $jsonD["comments"];
+    $cid = count($jsonD["comments"]) + 1;
 
-
-    $comArr = ["comments" =>["poster"=>$author, "content"=>$content, "likes"=>0, "dislikes"=>0]];
+    $comArr = ["comments" =>["poster"=>$author, "content"=>$content, "likes"=>0, "dislikes"=>0, "cid"=>$cid]];
     // var_dump($comArr);
 
 
