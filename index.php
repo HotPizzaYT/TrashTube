@@ -71,6 +71,15 @@
         <br />
         <h3>Want to upload your own video?</h3>
         <a href="upload.php">Go to this link to upload your video!</a>
+        <br>
+        <div style="background-color: #f0f0f0; width: 50%; border-radius: 16px;">
+        <h1>News</h1>
+        <?php
+        $x = file_get_contents("news.txt");
+        $x = str_replace("\n", "<br >", $x);
+        echo $x;
+        ?>
+        </div>
     </center>
     <font color="#808080">Copyright &copy; HxOr1337/(*DripDog*) 2021 - <?php echo date("Y"); ?></font>
 </body>
