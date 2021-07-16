@@ -1,0 +1,9 @@
+I got a bit lazy uploading files, so you need to install composer on your computer and do the following commands
+
+Open this folder in a command prompt/terminal.
+Make sure you have composer installed, if you don't, you can get composer at http://getcomposer.org/
+
+Type:
+composer require php-ffmpeg/php-ffmpeg
+
+Or you can extract vendor.zip. (Not here atm of writing)
