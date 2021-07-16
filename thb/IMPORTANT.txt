@@ -6,4 +6,6 @@ Make sure you have composer installed, if you don't, you can get composer at htt
 Type:
 composer require php-ffmpeg/php-ffmpeg
 
-Or you can extract vendor.zip. (Not here atm of writing)
+Or you can extract vendor.zip from this:
+
+https://drive.google.com/file/d/1WBqIooxzfsPOTfLFCAI0Tbf7rmqcQSU5/view?usp=sharing
