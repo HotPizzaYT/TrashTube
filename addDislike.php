@@ -12,6 +12,6 @@ if(file_exists("ids/" . $_GET["id"] . ".json")){
 	echo "[FAIL]: Video doesn't exist.";
 }
 } else {
-	echo "Why are you here."
+	echo "Why are you here.";
 }
 ?>
