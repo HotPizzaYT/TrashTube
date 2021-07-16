@@ -88,7 +88,7 @@
 </head>
 <body onload="x()">
     <div class="top-bar">
-        <div class="logo" href="/tt/" ><h1 title="Trash yourself!" href="/tt/">TrashTube</h1></div>
+        <a href="/tt/" style="color: #000;"><div class="logo" href="/tt/" ><h1 title="Trash yourself!" href="/tt/">TrashTube</h1></div></a>
         
         <center class="block">
             Search : <input type="text" id="sch" class="search" style="width: 500px" onkeydown="checkEnter(event, search)" placeholder="Search for videos..." />
@@ -135,9 +135,67 @@ if(file_exists("ids/" . $_GET["id"] . ".json")){
     $dlfun = 'fetch("\/tt\/addDislike.php?id=' . $_GET["id"] . '")';
     $lfun = 'fetch("\/tt\/addLike.php?id=' . $_GET["id"] . '")';
 
-	$htmlcontent = "<h1>" . htmlspecialchars($vt) . "</h1><div style='text-align: center;'><video style='width: 50%; text-align: center;' src='" . $src . "' controls='' uk-video=''>Whoops! Your browser doesn't support video files.</video></div><br /><br /><br /><div style='float: right; text-align: right;'>Likes :" . $likes . ", Dislikes: " . $dislikes . "<br />"
+    $percentOfLikes = 0;
+    $percentOfDislikes = 0;
+    $noLD = true;
+    if($jsonD["likes"] !== 0 && $jsonD["dislikes"] !== 0){
+    $percentOfLikes = ($jsonD["likes"] / ($jsonD["likes"] + $jsonD["dislikes"])) * 100;
+    $percentOfDislikes = ($jsonD["dislikes"] / ($jsonD["likes"] + $jsonD["dislikes"])) * 100;
+    $noLD = false;
     
-    . $views . " views<br /><button onclick='" . $lfun . "'>Like</button> - <button onclick='" . $dlfun . "'>Disike</button></div><b>Location:</b> " . $loc . "<br /><b>Description:</b> <br />" . $vd;
+    } else {
+        if($jsonD["likes"] >= 1 && $jsonD["dislikes"] == 0){
+            $percentOfLikes = 100;
+            $percentOfDislikes = 0;
+            $noLD = false;
+        } else {
+            if($jsonD["likes"] == 0 && $jsonD["dislikes"] >= 1){
+                $percentOfLikes = 0;
+                $percentOfDislikes = 100;
+                $noLD = false;
+            } else {
+                if($jsonD["likes"] == 0 && $jsonD["dislikes"] == 0){
+                    $noLD = true;
+                }
+            }
+        
+        }
+    }
+
+    if($percentOfLikes == 0 && $percentOfDislikes == 0){
+        $noLD = true;
+    }
+    // var_dump($noLD);
+
+    // BUG: This doesn't work!
+    // Fixed.
+
+    // If likes to dislike ratio are both 0:0, then display a gray bar below the likes and dislikes. Otherwise, show one or two bars comparing them.
+
+    if(!$noLD){
+    $likeBar = "<div style='width: " . $percentOfLikes . "px; height: 5px; background-color: #00ff00; display: inline-block;' class='like-ratio'></div><div style='width: " . $percentOfDislikes . "px; height: 5px; background-color: #ff0000; display: inline-block;' class='dislike-ratio'></div>";
+    } else {
+        $likeBar = "<div style='width: 100px; height: 5px; background-color: #808080; display: inline-block;' class='no-ld'></div>";
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	$htmlcontent = "<h1>" . htmlspecialchars($vt) . "</h1><div style='text-align: center;'><video style='width: 50%; text-align: center;' src='" . $src . "' controls='' uk-video=''>Whoops! Your browser doesn't support video files.</video></div><br /><br /><br /><div style='float: right; text-align: right;'>Likes: " . $likes . ", Dislikes: " . $dislikes . "<br />" . $likeBar . "<br />"
+    
+    . $views . " views<br /><button onclick='" . $lfun . "'>Like</button> - <button onclick='" . $dlfun . "'>Dislike</button></div><b>Location:</b> " . $loc . "<br /><b>Description:</b> <br />" . $vd;
 	echo $htmlcontent;
 
     if($commentsSet){
@@ -150,7 +208,8 @@ if(file_exists("ids/" . $_GET["id"] . ".json")){
         // $url = '~(?:(https?)://([^\s<]+)|(www\.[^\s<]+?\.[^\s<]+))(?<![\.,:])~i';
         
         $conurl = preg_replace($url, '<a href="$0" target="_blank" title="$0">$0</a>', $comments[$x]["content"]);
-            $commentSection .= "<hr><h3>" . htmlspecialchars($comments[$x]["poster"]) . "</h3>" . $conurl;
+        $conurl = str_replace("\n", "<br />", $conurl);
+            $commentSection .= "<hr><div style='float: right; text-align: right;'><b>Likes:</b> " . $comments[$x]["likes"] . "<br /><b>Dislikes:</b> "  . $comments[$x]["dislikes"] .  "<br /><button onclick=\"fetch('cmtFun.php?vid=" . $_GET["id"] . "&cid=" . ($x) . "&act=like')\">Like</button> - <button onclick=\"fetch('cmtFun.php?vid=" . $_GET["id"] . "&cid=" . ($x) . "&act=dislike')\">Dislike</button></div><h3>" . htmlspecialchars($comments[$x]["poster"]) . "</h3>" . $conurl;
         }
         echo $commentSection;
 
