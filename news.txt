@@ -1,24 +1,17 @@
-Welcome to HxTT news. We have fixed numerous bugs in 1.1.
+Welcome to HxTT news. We have created a solution for custom timecode for generated thumbnails. Now you can use $_GET["tc"] for the time of the video.
+Now, by default, thumbnails generate based on the middle of the video.
 
-If you didn't notice, we also changed the max amount of characters a video ID can have.
-Files updated in this update:
-index.php
-upload.php
+
+Changed and updated files:
+addLike.php
+addDislike.php
 view.php
-addComment.php
-Files added in this update:
+generateTN.php
 news.txt
-Files removed in this update:
-NONE
-(well technically, videos and ids, but that's beside the point)
 
-Remember to add and change these files and publish them to GitHub.
 
-Comments now have an id, for what reason, I do not yet know. But they will become useful over time and they're based on the ID of the video and which comment it is.
-Links in descriptions and comments now properly display as a hyperlink.
+You may have noticed that we have also added a green and red bar for dislike and like ratios on videos.
+<s>What do you think? Do you think we should swap the order of the colors to be like and dislike instead of dislike and like?</s>
+I changed it so it won't bother anyone ;)
 
-Another thing that I would like to address is an upcoming feature called thumbnails. Every video that is uploaded will be proccessed by ffmpeg-php and screengrabbed right in the middle of whatever video it is. That is what this will make this TrashTube version a bit better than SudTube.
-
-And finally but not least, uploaded videos no longer have a default comment.
-
-And very soon in version 1.2 I will add in likes and dislikes to comments.
+We've also added multilining in comments.
