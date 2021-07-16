@@ -65,6 +65,13 @@ Select a video to upload:
 <button onclick="document.location = '/tt'">Nevermind</button>
 </center>
 <?PHP
+require_once 'thb/generateTN.php';
+$iplogging = false;
+
+// It won't hurt to leave this enabled, even when you don't have the proper libraries to do so.
+// It'll show up as a button and will have to be clicked on user end anyway.
+
+$generateTN = true;
 function generateVideoID($length = 16){
 	$characters = "01234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 	$charactersLength = strlen($characters);
@@ -127,8 +134,19 @@ function generateVideoID($length = 16){
     
     if($isConfirmedVideo){
         if(move_uploaded_file($_FILES['video']['tmp_name'], $path)) {
-        // Also start thumbnail capture proccess here.
+        // I have no idea if this will work.
+        $th = " Thumbnail generation is turned off.";
+        if($generateTN){
+        $gurl = "thb/generateTN.php?id=" . $videoId;
+
+        // Function to generate thumbnail!
+        // thumbRequest($videoId);
+        $th = " <button onclick='fetch(\"" . $gurl . "\")'>Generate thumbnail</button>";
+        }
+        
+
             echo "Video uploaded <a href='view.php?id=". $videoId . "'>here</a>" ;
+            echo $th;
         } else{
             echo "There was an error uploading the file, please try again!";
         }
