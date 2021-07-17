@@ -10,7 +10,9 @@ Then, delete deleteme.txt in /ids.
 Then you're good to go
 # Thumbnail Generation
 For thumbnail generation to work, you need two things: FFMpeg and FFProbe.
+
 For Windows: https://www.gyan.dev/ffmpeg/builds/
+
 For Linux: https://www.johnvansickle.com/ffmpeg/
 
 Linux users must download and extract the `tar.xz` from the site to `/opt/local/ffmpeg/bin/`.
