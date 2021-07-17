@@ -121,7 +121,7 @@ if(file_exists("ids/" . $_GET["id"] . ".json")){
 	$dislikes = $jsonD["dislikes"];
 	$likes = $jsonD["likes"];
 	$views = $jsonD["views"];
-    $loc = $jsonD["location"];
+    $loc = htmlspecialchars($jsonD["location"]);
     if($loc === ""){
         $loc = "No location set for this video.";
     }
