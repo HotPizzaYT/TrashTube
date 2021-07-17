@@ -98,7 +98,9 @@ function generateVideoID($length = 16){
         $filetype = explode("/", $mime);
         
         // Insert all supported video types.
-        if ($ext == 'mp4' || $ext == 'mov' || $ext == 'avi' || $ext == 'mkv' || $ext == 'mpeg4' || $ext == 'mpeg') {
+
+        // Added m4v for converted HandBrake videos.
+        if ($ext == 'mp4' || $ext == 'mov' || $ext == 'avi' || $ext == 'mkv' || $ext == 'mpeg4' || $ext == 'mpeg' || $ext == 'm4v') {
         // This measure prevents hackings from happening. It also limits users on what type of video they can post.    
         $isConfirmedVideo = true;
         }
@@ -135,13 +137,14 @@ function generateVideoID($length = 16){
     if($isConfirmedVideo){
         if(move_uploaded_file($_FILES['video']['tmp_name'], $path)) {
         // I have no idea if this will work.
-        $th = " Thumbnail generation is turned off.";
+        $th = ". Thumbnail generation is turned off.";
         if($generateTN){
         $gurl = "thb/generateTN.php?id=" . $videoId;
 
         // Function to generate thumbnail!
         // thumbRequest($videoId);
-        $th = " <button onclick='fetch(\"" . $gurl . "\")'>Generate thumbnail</button>";
+        // Purposely error so we can run a script immediately
+        $th = ". <img src='purposeerror.png' onerror='fetch(\"" . $gurl . "\")' alt='Generated a thumbnail.' />";
         }
         
 
