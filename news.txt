@@ -1,17 +1,13 @@
-Welcome to HxTT news. We have created a solution for custom timecode for generated thumbnails. Now you can use $_GET["tc"] for the time of the video.
-Now, by default, thumbnails generate based on the middle of the video.
+Welcome to HxTT news. This is version 1.4, and even though it might not have that many changes, they are big changes for sure.
 
+Modified files:
 
-Changed and updated files:
-addLike.php
-addDislike.php
-view.php
-generateTN.php
+upload.php
+index.php
 news.txt
+view.php
 
+Fixed a possible exploit in view.php. That means DO NOT USE THE OLDER VERSIONS!
 
-You may have noticed that we have also added a green and red bar for dislike and like ratios on videos.
-<s>What do you think? Do you think we should swap the order of the colors to be like and dislike instead of dislike and like?</s>
-I changed it so it won't bother anyone ;)
-
-We've also added multilining in comments.
+Thumbnail generation now happens without user input regardless of whether or not the user wanted a thumbnail or not.
+This can be turned off in upload.php.
