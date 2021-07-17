@@ -64,7 +64,9 @@
             $jsonContents = file_get_contents("ids/" . $jsonFile);
             $data = json_decode($jsonContents, true);
             if(file_exists("thb/" . $id . ".jpg")){
-            echo "<div class='video-tile'><img src='thb/" . $id . ".jpg' width='320' height='240' /><br /><a href='view.php?id=" . $id . "'>" . $data["title"] . " (" . $data["views"] . " views)</a></div>";
+
+            // Changed where link goes!
+            echo "<div class='video-tile'><a href='view.php?id=" . $id . "'><img src='thb/" . $id . ".jpg' width='320' height='240' /><br />" . $data["title"] . " (" . $data["views"] . " views)</a></div>";
             } else {
                 echo "<div class='video-tile'><a title='This video has no thumbnail!' href='view.php?id=" . $id . "'>" . $data["title"] . " (" . $data["views"] . " views)</a></div>";
             }
