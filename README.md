@@ -20,8 +20,10 @@ For Windows: https://www.gyan.dev/ffmpeg/builds/
 
 For Linux: https://www.johnvansickle.com/ffmpeg/
 
-For more information, please take a look at `IMPORTANT.txt` in `/thb`. Thank you.
+
 
 Linux users must download and extract the `tar.xz` from the site to `/opt/local/ffmpeg/bin/`.
+
+For more information, please take a look at `IMPORTANT.txt` in `/thb`. Thank you.
 # IMPORTANT
 I am not liable for any copyright complaints by your VPS or ISP. If you install this and it works, you better monitor the videos that go on here. 
