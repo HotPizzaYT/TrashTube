@@ -5,6 +5,9 @@
 <title>TrashTube - Home</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="TrashTube 2.0">
+
+<!-- Insert polyfill -->
+<script src="http://api.html5media.info/1.1.8/html5media.min.js"></script>
 <style>
     .top-bar {
         background-color: #f0f0f0;
