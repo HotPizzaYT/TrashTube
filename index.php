@@ -1,9 +1,22 @@
+<?php
+if(!file_exists("config.json")) {
+    die("Error loading configuration. Please reinstall.");
+}
+else {
+    $config = json_decode(file_get_contents("config.json"), true);
+    if($config['installed'] === "no") {
+        header("Location: install.php?page=welcome");
+    }
+    $name = $config['name'];
+    $path = $config['path'];
+}
+    ?>
 <!DOCTYPE html>
 <html>
 <head>
-<title>TrashTube - Home</title>
+<title><?php echo($name); ?> - Home</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="TrashTube 2.0">
+    <meta name="description" content="<?php echo($name); ?> 2.0">
 <style>
     .top-bar {
         background-color: #f0f0f0;
@@ -38,12 +51,13 @@
 
             // Do something with X.
             console.log(x);
+            window.location = `search.php?q=${x}`
         }
     </script>
 </head>
 <body>
     <div class="top-bar">
-        <div class="logo" href="/tt/" ><h1 title="Trash yourself!" href="/tt/">TrashTube</h1></div>
+        <div class="logo" href="<?php echo($path); ?>" ><h1 title="<?php echo($name); ?>" href="<?php echo($path); ?>"><?php echo($name); ?></h1></div>
         
         <center class="block">
             Search : <input type="text" id="sch" class="search" style="width: 500px" onkeydown="checkEnter(event, search)" placeholder="Search for videos..." />
