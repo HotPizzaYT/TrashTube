@@ -5,7 +5,7 @@ http://trashtube.sudaox.tech/
 
 Live Demo:
 
-[COMING SOON]
+http://sudaox.tech/tt/
 
 # How to install
 
