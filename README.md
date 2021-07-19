@@ -9,7 +9,7 @@ Live Demo:
 
 # How to install
 
-Copy the files to your webserver under a folder named "tt".
+Copy the files to your webserver under a folder named "tt". Then you want to extract vendor.zip to /tbh for thumbnail generation.
 Then, delete deleteme.txt in /ids.
 
 Then you're good to go
