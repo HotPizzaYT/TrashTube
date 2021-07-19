@@ -1,7 +1,7 @@
 # TrashTube
 A Basic YouTube Clone
 
--- http://trashtube.sudaox.tech/ --
+-- http://trashtube.sudaox.tech/ 
 
 Live Demo:
 
