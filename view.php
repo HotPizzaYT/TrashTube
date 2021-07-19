@@ -7,7 +7,8 @@
     <meta name="description" content="TrashTube 2.0">
 
 <!-- Insert polyfill -->
-<script src="http://api.html5media.info/1.1.8/html5media.min.js"></script>
+	<script src="http://api.html5media.info/1.1.8/html5media.min.js"></script>
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=fetch"></script>
 <style>
     .top-bar {
         background-color: #f0f0f0;
