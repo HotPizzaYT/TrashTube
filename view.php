@@ -41,7 +41,8 @@
             x = document.getElementById("sch").value;
 
             // Do something with X.
-            console.log(x);
+            // Disable logging in search for the sake of old browsers.
+		// console.log(x);
         }
         function x(){
             <?php
@@ -49,7 +50,8 @@
                 echo 'document.getElementsByTagName("video")[0].currentTime = "' . $_GET["s"] . '";';
                 
             } else {
-                echo "console.log('No time.');";
+		// Comment that out for the sake of old browsers.
+                echo "// console.log('No time.');";
             }
             ?>
             
@@ -196,7 +198,7 @@ if(file_exists("ids/" . $_GET["id"] . ".json")){
 
 
 
-	$htmlcontent = "<h1>" . htmlspecialchars($vt) . "</h1><div style='text-align: center;'><video style='width: 50%; text-align: center;' src='" . $src . "' controls='' uk-video=''>Whoops! Your browser doesn't support video files.</video></div><br /><br /><br /><div style='float: right; text-align: right;'>Likes: " . $likes . ", Dislikes: " . $dislikes . "<br />" . $likeBar . "<br />"
+	$htmlcontent = "<h1>" . htmlspecialchars($vt) . "</h1><div style='text-align: center;'><video style='width: 50%; height: 50%; text-align: center;' src='" . $src . "' controls='' uk-video=''>Whoops! Your browser doesn't support video files.</video></div><br /><br /><br /><div style='float: right; text-align: right;'>Likes: " . $likes . ", Dislikes: " . $dislikes . "<br />" . $likeBar . "<br />"
     
     . $views . " views<br /><button onclick='" . $lfun . "'>Like</button> - <button onclick='" . $dlfun . "'>Dislike</button></div><b>Location:</b> " . $loc . "<br /><b>Description:</b> <br />" . $vd;
 	echo $htmlcontent;
