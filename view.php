@@ -213,7 +213,7 @@ if(file_exists("ids/" . $_GET["id"] . ".json")){
         // Hyperlink parser
         // $url = '~(?:(https?)://([^\s<]+)|(www\.[^\s<]+?\.[^\s<]+))(?<![\.,:])~i';
         
-        $conurl = preg_replace($url, '<a href="$0" target="_blank" title="$0">$0</a>', $comments[$x]["content"]);
+        $conurl = preg_replace($url, '<a href="$0" target="_blank" title="$0">$0</a>', $content);
         $conurl = str_replace("\n", "<br />", $conurl);
             $commentSection .= "<hr><div style='float: right; text-align: right;'><b>Likes:</b> " . $comments[$x]["likes"] . "<br /><b>Dislikes:</b> "  . $comments[$x]["dislikes"] .  "<br /><button onclick=\"fetch('cmtFun.php?vid=" . $_GET["id"] . "&cid=" . ($x) . "&act=like')\">Like</button> - <button onclick=\"fetch('cmtFun.php?vid=" . $_GET["id"] . "&cid=" . ($x) . "&act=dislike')\">Dislike</button></div><h3>" . htmlspecialchars($comments[$x]["poster"]) . "</h3>" . $conurl;
         }
