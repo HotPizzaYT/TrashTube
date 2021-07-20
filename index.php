@@ -79,9 +79,10 @@ window.location = `search.php?q=${x}`
         for($x = 2; $x < $nov; $x++){
             $jsonFile = $videos[$x];
             $id = str_replace(".json", "", $jsonFile);
-            $title = htmlspecialchars($data["title"]);
+           
             $jsonContents = file_get_contents("ids/" . $jsonFile);
             $data = json_decode($jsonContents, true);
+             $title = htmlspecialchars($data["title"]);
             if(file_exists("thb/" . $id . ".jpg")){
 
             // Changed where link goes!
