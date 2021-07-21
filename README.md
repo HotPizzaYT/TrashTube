@@ -21,9 +21,13 @@ For Windows: https://www.gyan.dev/ffmpeg/builds/
 For Linux: https://www.johnvansickle.com/ffmpeg/
 
 
-
 Linux users must download and extract the `tar.xz` from the site to `/opt/local/ffmpeg/bin/`.
 
 For more information, please take a look at `IMPORTANT.txt` in `/thb`. Thank you.
+
+# Minimum version requirement
+
+It is recommended that you use PHP 7.3.0 or later to run this project on your server. Other versions, such as 
+
 # IMPORTANT
 I am not liable for any copyright complaints by your VPS or ISP. If you install this and it works, you better monitor the videos that go on here. 
