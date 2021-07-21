@@ -22,9 +22,9 @@ if (strpos($data['title'], $_GET['q']) !== false) {
    if(file_exists("thb/" . $id . ".jpg")){
 
     // Changed where link goes!
-    echo "<div class='video-tile'><a href='view.php?id=" . $id . "'><img src='thb/" . $id . ".jpg' width='320' height='240' /><br />" . $data["title"] . " (" . $data["views"] . " views)</a></div>";
+    echo "<div class='video-tile'><a href='view.php?id=" . $id . "'><img src='thb/" . $id . ".jpg' width='320' height='240' /><br />" . htmlspecialchars($data["title"]) . " (" . $data["views"] . " views)</a></div>";
     } else {
-        echo "<div class='video-tile'><a title='This video has no thumbnail!' href='view.php?id=" . $id . "'>" . $data["title"] . " (" . $data["views"] . " views)</a></div>";
+        echo "<div class='video-tile'><a title='This video has no thumbnail!' href='view.php?id=" . $id . "'>" . htmlspecialchars($data["title"]) . " (" . $data["views"] . " views)</a></div>";
     }
 }
 else {
