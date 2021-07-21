@@ -27,7 +27,7 @@ For more information, please take a look at `IMPORTANT.txt` in `/thb`. Thank you
 
 # Minimum version requirement
 
-It is recommended that you use PHP 7.3.0 or later to run this project on your server. Other versions, such as 5.3.29 have yet to be tested.
+It is recommended that you use PHP 7.3.0 or later to run this project on your server. Earlier versions of PHP may not work as intended.
 
 # IMPORTANT
 I am not liable for any copyright complaints by your VPS or ISP. If you install this and it works, you better monitor the videos that go on here. 
