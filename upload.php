@@ -89,13 +89,13 @@ function generateVideoID($length = 16){
     // Set this to true to bypass.
     $isConfirmedVideo = false;
     if(isset($_FILES['video']['tmp_name']) && !empty(FILEINFO_MIME_TYPE)) {
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mime = finfo_file($finfo, $_FILES['video']['tmp_name']);
+ //     $finfo = finfo_open(FILEINFO_MIME_TYPE);
+ //     $mime = finfo_file($finfo, $_FILES['video']['tmp_name']);
         $extension = explode(".", $_FILES['video']['name']);
         $end = count($extension) - 1;
         $ext = $extension[$end];
         // echo $ext;
-        $filetype = explode("/", $mime);
+ //     $filetype = explode("/", $mime);
         
         // Insert all supported video types.
 
