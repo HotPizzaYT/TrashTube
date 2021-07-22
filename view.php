@@ -2,9 +2,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>TrashTube - Home</title>
+	<?php
+	if(isset($_GET["id"])){
+
+if(file_exists("ids/" . $_GET["id"] . ".json")){
+	// Video exists;
+	$json = file_get_contents("ids/" . $_GET["id"] . ".json");
+	$jsonD = json_decode($json, true);
+} else {
+		$jsonD = array("title" => "Video not found", "desc" => "Unfortunately, we could not find that video.");
+}
+	} else {
+		$jsonD = array("title" => "ID not set", "desc" => "The ID is not set, therefore we cannot display a video.");
+	}
+	?>
+<title><?php echo htmlspecialchars($json["title"]); ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="TrashTube 2.0">
+    <meta name="description" content="<?php echo htmlspecialchars($json["desc"]); ?>">
 
 <!-- Insert polyfill -->
 	<script src="http://api.html5media.info/1.1.8/html5media.min.js"></script>
