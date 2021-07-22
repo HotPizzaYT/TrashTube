@@ -16,9 +16,9 @@ if(file_exists("ids/" . $_GET["id"] . ".json")){
 		$jsonD = array("title" => "ID not set", "desc" => "The ID is not set, therefore we cannot display a video.");
 	}
 	?>
-<title><?php echo htmlspecialchars($json["title"]); ?></title>
+<title><?php echo htmlspecialchars($jsonD["title"]); ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="<?php echo htmlspecialchars($json["desc"]); ?>">
+    <meta name="description" content="<?php echo htmlspecialchars($jsonD["desc"]); ?>">
 
 <!-- Insert polyfill -->
 	<script src="http://api.html5media.info/1.1.8/html5media.min.js"></script>
