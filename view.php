@@ -208,7 +208,10 @@ if(file_exists("ids/" . $_GET["id"] . ".json")){
 
 
 
-
+    $converted = str_replace("videos/", "videos/conv_", $src);
+    if(file_exists($converted)){
+    $src = $converted;
+    }
 
 
 
