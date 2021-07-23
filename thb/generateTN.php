@@ -1,5 +1,5 @@
 <?php
-
+$generateSWF = false;
 
 // Replace ffmpeg libraries.
 
@@ -23,6 +23,8 @@ $ffprobe = FFMpeg\FFProbe::create(array(
     'ffmpeg.threads'   => 12,   // The number of threads that FFMpeg should use
     
 ));
+$mpegpath = dirname(__FILE__) . "/bin/ffmpeg.exe";
+$probepath = dirname(__FILE__) . "/bin/ffprobe.exe";
 $host = "windows";
 } else {
 if(file_exists("/opt/local/ffmpeg/bin/ffmpeg") && file_exists("/opt/local/ffmpeg/bin/ffprobe")){
@@ -45,6 +47,9 @@ if(file_exists("/opt/local/ffmpeg/bin/ffmpeg") && file_exists("/opt/local/ffmpeg
     'ffmpeg.threads'   => 12,   // The number of threads that FFMpeg should use
     
 ));
+$mpegpath = "/opt/local/ffmpeg/bin/ffmpeg";
+$probepath = "/opt/local/ffmpeg/bin/ffmpeg";
+
 $host = "linux";
 } else {
 
@@ -57,6 +62,7 @@ if(isset($_GET["id"]) && file_exists("../ids/" . $_GET["id"] . ".json") && $host
     $json = file_get_contents($jsonPath);
 	$jsonD = json_decode($json, true);
     $src = "../" . $jsonD["src"];
+
     echo "Opening " . $src;
 	// $ffmpeg = FFMpeg\FFMpeg::create();
     $video = $ffmpeg->open($src);
@@ -73,6 +79,7 @@ if(isset($_GET["id"]) && file_exists("../ids/" . $_GET["id"] . ".json") && $host
         $video
         ->frame(FFMpeg\Coordinate\TimeCode::fromSeconds($_GET["tc"]))
         ->save($_GET["id"] . '.jpg');
+
     } else {  
         // $ffprobe = FFMpeg\FFProbe::create();
         $duration = $ffprobe->format($src)->get('duration');
@@ -82,6 +89,39 @@ if(isset($_GET["id"]) && file_exists("../ids/" . $_GET["id"] . ".json") && $host
         $video
         ->frame(FFMpeg\Coordinate\TimeCode::fromSeconds($middle))
         ->save($_GET["id"] . '.jpg');
+
+
+        // Save MP4 as SWF
+        // This is done for devices such as the Nintendo Wii.
+        $relativeSrc = dirname(__FILE__) . "/../" . $jsonD["src"];
+        $csrc = str_replace("videos/", "videos/conv_", dirname(__FILE__) . "/../" . $jsonD["src"]);
+        // echo $csrc;
+/*
+// This code is changing extension, but it isn't used, so I'll comment it out.
+        $extension = explode(".", $csrc);
+        $extlast = count($extension) - 1;
+        $extfinal = $extension[$extlast];
+*/
+        $convertedName = $csrc;
+        $videosRelative = dirname(__FILE__) . "/../videos";
+        $outputRelative = dirname(__FILE__) . "/";
+
+        // Check if SWF conversion is turned on
+        if($generateSWF){
+        $videotoswf = $mpegpath . " -i \"". $relativeSrc . "\" -ar 44100 \"" . $outputRelative . $_GET["id"] . ".swf\"";
+        echo($videotoswf);
+        exec($videotoswf, $output, $return_var);
+        var_dump($output);
+        var_dump($return_var);
+        }
+        // Convert to the H.264 codec
+        echo "<br/>Converting video...<br />";
+        $conversion = $mpegpath . " -i \"" . $relativeSrc . "\" -d libx264 -ar 44100 \"" . $csrc . "\"";
+        exec($conversion, $cout, $cret);
+        var_dump($cout);
+        var_dump($cret);
+        echo "<br />" . $conversion;
+
     }
     echo "<br />Saved the thumbnail. Here it is:<br /> <img src='" . $_GET["id"] . ".jpg' />";
 } else {
