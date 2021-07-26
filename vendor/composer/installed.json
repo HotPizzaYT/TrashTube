@@ -1,0 +1,57 @@
+{
+    "packages": [
+        {
+            "name": "jwplayer/jwplatform",
+            "version": "v1.7.0",
+            "version_normalized": "1.7.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jwplayer/jwplatform-php.git",
+                "reference": "f2571db93a7eced5e78e05064eb3cc42f67f0f01"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jwplayer/jwplatform-php/zipball/f2571db93a7eced5e78e05064eb3cc42f67f0f01",
+                "reference": "f2571db93a7eced5e78e05064eb3cc42f67f0f01",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.6.0"
+            },
+            "time": "2019-12-27T23:10:02+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Jwplayer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "JWPlayer and contributors",
+                    "homepage": "https://github.com/jwplayer/jwplatform-php/contributors"
+                }
+            ],
+            "description": "Official JW Player client",
+            "homepage": "https://developer.jwplayer.com/jw-platform/",
+            "keywords": [
+                "api",
+                "jwplatform",
+                "jwplayer",
+                "video streaming"
+            ],
+            "support": {
+                "issues": "https://github.com/jwplayer/jwplatform-php/issues",
+                "source": "https://github.com/jwplayer/jwplatform-php/tree/v1.7.0"
+            },
+            "install-path": "../jwplayer/jwplatform"
+        }
+    ],
+    "dev": true,
+    "dev-package-names": []
+}

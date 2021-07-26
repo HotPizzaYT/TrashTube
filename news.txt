@@ -1,0 +1,13 @@
+Welcome to HxTT news. This is version 1.4, and even though it might not have that many changes, they are big changes for sure.
+
+Modified files:
+
+upload.php
+index.php
+news.txt
+view.php
+
+Fixed a possible exploit in view.php. That means DO NOT USE THE OLDER VERSIONS!
+
+Thumbnail generation now happens without user input regardless of whether or not the user wanted a thumbnail or not.
+This can be turned off in upload.php.

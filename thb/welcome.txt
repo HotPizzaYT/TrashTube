@@ -1,0 +1,1 @@
+Welcome to the thumbnails folder. Please put FFMpeg and FFProbe binaries in bin/
