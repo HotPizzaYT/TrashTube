@@ -1,8 +1,65 @@
-
+<?php
+if(!file_exists("config.json")) {
+    die("Error loading configuration. Please reinstall.");
+}
+else {
+    $config = json_decode(file_get_contents("config.json"), true);
+    if($config['installed'] === "no") {
+        header("Location: install.php?page=welcome");
+    }
+    $name = $config['name'];
+    $path = $config['path'];
+}
+    ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<?php
+    if(isset($_GET['action'])) {
+        if($_GET['action'] === "share") {
+            $id = htmlspecialchars($_GET['id']);
+if(!isset($_GET['id'])) { die("No video ID specified."); }
+if(!file_exists("ids/$id.json")) {
+die("Video does not exist.");
+}
+$videoinfo = json_decode(file_get_contents("ids/$id.json"), true);
+$title = htmlspecialchars($videoinfo['title']);
+function getUrlScheme() {
+    if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') { 
+        return("https");
+        } 
+        else {
+            return("http");
+        }
+}
+if(isset($_SERVER['HTTPS']) && 
+            $_SERVER['HTTPS'] === 'on')
+    $link = "https";
+    else
+        $link = "http";
+  
+$link .= "://";
+$link .= $_SERVER['HTTP_HOST'];
+$link .= $_SERVER['PHP_SELF'];
+$link .= "?id=$id";
+$linknew = htmlspecialchars($link);
+//echo $link;
+        echo("
+        <html>
+        <head>
+        <title>Share Video</title>
+        </head>
+        <body>
+        <center>
+        <h3>Share this video ($title)</h3>
+        <p>URL:</p>
+        <input value='$linknew'>
+        <p>Email:</p>
+        <a href='mailto:friend@example.com?subject=You have recieved a TrashTube Video&body=$link'>Send Email</a>
+        ");
+die();
+        }
+    }
 	if(isset($_GET["id"])){
 
 if(file_exists("ids/" . $_GET["id"] . ".json")){
@@ -108,7 +165,7 @@ if(file_exists("ids/" . $_GET["id"] . ".json")){
 </head>
 <body onload="x()">
     <div class="top-bar">
-        <a href="/tt/" style="color: #000;"><div class="logo" href="/tt/" ><h1 title="Trash yourself!" href="/tt/">TrashTube</h1></div></a>
+        <a href="." style="color: #000;"><div class="logo" href="/tt/" ><h1 title="Trash yourself!" href="/tt/">TrashTube</h1></div></a>
         
         <center class="block">
             Search : <input type="text" id="sch" class="search" style="width: 500px" onkeydown="checkEnter(event, search)" placeholder="Search for videos..." />
@@ -229,6 +286,13 @@ if(file_exists("ids/" . $_GET["id"] . ".json")){
     
     . $views . " views<br /><button onclick='" . $lfun . "'>Like</button> - <button onclick='" . $dlfun . "'>Dislike</button></div><b>Uploader:</b> " . $uploader . "<br /><b>Location:</b> " . $loc . "<br /><b>Description:</b> <br />" . $vd;
     echo $htmlcontent;
+    if($_SESSION["username"] === htmlspecialchars($jsonD["uploader"])) {
+        $studid = $_GET["id"];
+        echo("<form action='studio/delete_video.php' method='POST'><input type='text' hidden style='display:none;' name='id' value='$studid'><input type='submit' value='Delete Video'></form>");
+    }
+    ?>
+   <br> <a href="javascript:var popup=window.open('view.php?action=share&id=<?php echo($_GET['id']); ?>', 'share',            'width=600, height=600, location=no, menubar=no,            status=no, toolbar=no, scrollbars=yes, resizable=yes');" tabindex="-1"><button>Share</button></a>
+    <?php
     if($commentsSet){
         $commentAmount = count($comments);
         $commentSection = "<h1>Comments (" . $commentAmount . ")</h1><hr>";
