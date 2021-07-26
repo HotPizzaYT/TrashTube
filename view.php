@@ -10,6 +10,7 @@ else {
     $name = $config['name'];
     $path = $config['path'];
 }
+session_start();
     ?>
 <!DOCTYPE html>
 <html>
@@ -41,12 +42,17 @@ if(isset($_SERVER['HTTPS']) &&
 $link .= "://";
 $link .= $_SERVER['HTTP_HOST'];
 $link .= $_SERVER['PHP_SELF'];
-$link .= "?id=$id";
+$link .= "?id=$id&ref=share";
+if(isset($_SESSION["username"]) && isset($_SESSION["email"])){
+    $username = $_SESSION["username"];
+    $link .= "&user=$username";
+}
 $linknew = htmlspecialchars($link);
 //echo $link;
         echo("
         <html>
         <head>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
         <title>Share Video</title>
         </head>
         <body>
@@ -172,7 +178,6 @@ if(file_exists("ids/" . $_GET["id"] . ".json")){
         </center>
     </div>
 <?php
-session_start();
 
 $url = '~(?:(https?)://([^\s<]+)|(www\.[^\s<]+?\.[^\s<]+))(?<![\.,:])~i';
 if(isset($_GET["id"])){
@@ -284,7 +289,7 @@ if(file_exists("ids/" . $_GET["id"] . ".json")){
 
 	$htmlcontent = "<h1>" . htmlspecialchars($vt) . "</h1><div style='text-align: center;'><video style='width: 50%; height: 50%; text-align: center;' src='" . $src . "' controls='' uk-video=''>Whoops! Your browser doesn't support video files.</video></div><br /><br /><br /><div style='float: right; text-align: right;'>Likes: " . $likes . ", Dislikes: " . $dislikes . "<br />" . $likeBar . "<br />"
     
-    . $views . " views<br /><button onclick='" . $lfun . "'>Like</button> - <button onclick='" . $dlfun . "'>Dislike</button></div><b>Uploader:</b> " . $uploader . "<br /><b>Location:</b> " . $loc . "<br /><b>Description:</b> <br />" . $vd;
+    . $views . " views<br /><button onclick='" . $lfun . "'>Like</button> - <button onclick='" . $dlfun . "'>Dislike</button></div><b>Uploader:</b> " . $uploader . "<br /><b>Location:</b> <a href='location.php?q=$loc'>" . $loc . "</a><br /><b>Description:</b> <br />" . $vd;
     echo $htmlcontent;
     if($_SESSION["username"] === htmlspecialchars($jsonD["uploader"])) {
         $studid = $_GET["id"];
