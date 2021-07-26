@@ -97,6 +97,8 @@ window.location = `search.php?q=${x}`
         <br />
         <h3>Want to upload your own video?</h3>
         <a href="upload.php">Go to this link to upload your video!</a>
+        <h3>Want to have a profile?</h3>
+        <a href="accounts/index.php">Go here to login, or manage your own account</a>
         <br>
         <div style="background-color: #f0f0f0; width: 50%; border-radius: 16px;">
         <h1>News</h1>

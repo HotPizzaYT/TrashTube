@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,6 +58,16 @@
 Select a video to upload:
 <input type="file" name="video" id="video">
 <br>
+<p>Uploader (Optional)</p>
+
+<input type="text" name="uploader" value="<?php
+if(isset($_SESSION["username"]) && isset($_SESSION["email"])){
+// You can't disable this or it won't go through!
+// Good thing though is that it'll still add to user acc.
+echo $_SESSION["username"] . "\" disabled=\"true";
+} else {
+echo "Anonymous";
+} ?>" />
 <p>Title (Required)</p>
 <input type="text" required name="title" >
 <p>Description (Required)</p>
@@ -89,13 +103,13 @@ function generateVideoID($length = 16){
     // Set this to true to bypass.
     $isConfirmedVideo = false;
     if(isset($_FILES['video']['tmp_name']) && !empty(FILEINFO_MIME_TYPE)) {
- //     $finfo = finfo_open(FILEINFO_MIME_TYPE);
- //     $mime = finfo_file($finfo, $_FILES['video']['tmp_name']);
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mime = finfo_file($finfo, $_FILES['video']['tmp_name']);
         $extension = explode(".", $_FILES['video']['name']);
         $end = count($extension) - 1;
         $ext = $extension[$end];
         // echo $ext;
- //     $filetype = explode("/", $mime);
+        $filetype = explode("/", $mime);
         
         // Insert all supported video types.
 
@@ -121,14 +135,34 @@ function generateVideoID($length = 16){
     // $comments = array();
     // Create a blank array with no comments.
     $commentData = array();
-    $videoData = array("title"=>$_POST["title"], "desc"=>$_POST["desc"], "location"=>$_POST["location"], "src"=>$path, "likes"=>0, "dislikes"=>0, "views"=>0, "comments"=>$commentData);
+    if(isset($_POST["uploader"]) && $_POST["uploader"] !== ""){
+        $uploader = $_POST["uploader"];
+    } else {
+        if(isset($_SESSION["username"])){
+            $uploader = $_SESSION["username"];
+        } else {
+            $uploader = "Anonymous";
+        }
+    }
+ 
+    $videoData = array("title"=>$_POST["title"], "desc"=>$_POST["desc"], "location"=>$_POST["location"], "src"=>$path, "uploader" => $uploader, "likes"=>0, "dislikes"=>0, "views"=>0, "comments"=>$commentData);
 
     $idlength = rand(8, 16);
 
     $videoId = generateVideoID($idlength);
     $vidDstring = json_encode($videoData);
     file_put_contents("ids/". $videoId . ".json", $vidDstring);
-
+    if(isset($_SESSION["username"]) && isset($_SESSION["email"])){
+        // Add video to profile.
+        $vidarr = ["videos"=>[$videoId]];
+        $accTxt = file_get_contents("accounts/data/" . $_SESSION["username"] . ".json");
+        $accJson = json_decode($accTxt, true);
+        // Add video to array of videos.
+        array_push($accJson["videos"], $videoId);
+        // Save to file.
+        $accFinal = json_encode($accJson);
+        file_put_contents("accounts/data/" . $_SESSION["username"] . ".json", $accFinal);
+    }
 
     } else {
         echo "Your video has not been uploaded. REASON: ";

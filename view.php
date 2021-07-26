@@ -115,6 +115,7 @@ if(file_exists("ids/" . $_GET["id"] . ".json")){
         </center>
     </div>
 <?php
+session_start();
 
 $url = '~(?:(https?)://([^\s<]+)|(www\.[^\s<]+?\.[^\s<]+))(?<![\.,:])~i';
 if(isset($_GET["id"])){
@@ -216,11 +217,18 @@ if(file_exists("ids/" . $_GET["id"] . ".json")){
 
 
 
+    if(file_exists("accounts/data/" . $jsonD["uploader"] . ".json")){
+    // Yes!
+    $uploader = "<a href='channel.php?id=" . htmlspecialchars($jsonD["uploader"]) . "'>" . htmlspecialchars($jsonD["uploader"]) . "</a>";
+    } else {
+        $uploader = htmlspecialchars($jsonD["uploader"]);
+    }
+
+
 	$htmlcontent = "<h1>" . htmlspecialchars($vt) . "</h1><div style='text-align: center;'><video style='width: 50%; height: 50%; text-align: center;' src='" . $src . "' controls='' uk-video=''>Whoops! Your browser doesn't support video files.</video></div><br /><br /><br /><div style='float: right; text-align: right;'>Likes: " . $likes . ", Dislikes: " . $dislikes . "<br />" . $likeBar . "<br />"
     
-    . $views . " views<br /><button onclick='" . $lfun . "'>Like</button> - <button onclick='" . $dlfun . "'>Dislike</button></div><b>Location:</b> " . $loc . "<br /><b>Description:</b> <br />" . $vd;
-	echo $htmlcontent;
-
+    . $views . " views<br /><button onclick='" . $lfun . "'>Like</button> - <button onclick='" . $dlfun . "'>Dislike</button></div><b>Uploader:</b> " . $uploader . "<br /><b>Location:</b> " . $loc . "<br /><b>Description:</b> <br />" . $vd;
+    echo $htmlcontent;
     if($commentsSet){
         $commentAmount = count($comments);
         $commentSection = "<h1>Comments (" . $commentAmount . ")</h1><hr>";
@@ -255,7 +263,7 @@ if(file_exists("ids/" . $_GET["id"] . ".json")){
 <h1>Add a comment</h1>
 <form action="addComment.php" method="post" enctype="multipart/form-data">
 <p>Your name (required)</p>
-<input type="text" required name="author" id="author">
+<input type="text" required value="<?php if(isset($_SESSION["username"])){ echo $_SESSION["username"] . "\" disabled title=\"You are logged in!"; } else { echo "Anonymous"; } ?>" name="author" id="author">
 <input type="hidden" value="<?php echo $_GET["id"]; ?>" name="id">
 <br>
 <p>Text (Required)</p>
