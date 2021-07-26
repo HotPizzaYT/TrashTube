@@ -5,7 +5,7 @@ A Basic YouTube Clone
 
 Live Demo:
 
-http://sudaox.tech/tt/
+http://tt.sudaox.tech/
 
 # How to install
 
