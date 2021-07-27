@@ -28,6 +28,7 @@ if(file_exists("config.json")) {
      file_put_contents("config.json", $json2);
      echo("Installed. Click <a href='index.php'>here</a> to go to your new TT");
      if(file_exists("ids/deleteme.txt")) { unlink("ids/deleteme.txt"); }
+      if(file_exists("accounts/avatar/installer")) { unlink("accounts/avatar/installer"); }
   }
 }
 else {
