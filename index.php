@@ -100,6 +100,9 @@ window.location = `search.php?q=${x}`
         <h3>Want to have a profile?</h3>
         <a href="accounts/index.php">Go here to login, or manage your own account</a>
         <br>
+        <h3>Want to see all channels?</h3>
+        <a href="channels.php">Click here to see all channels</a>
+        <br>
         <div style="background-color: #f0f0f0; width: 50%; border-radius: 16px;">
         <h1>News</h1>
         <?php
