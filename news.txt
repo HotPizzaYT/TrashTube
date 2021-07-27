@@ -12,6 +12,8 @@ accounts/*
 channels.php
 channel.php
 
+this is a GIANORMOUS overhaul. Try to find all the new features!
+
 Fixed a possible exploit in view.php. That means DO NOT USE THE OLDER VERSIONS!
 
 Thumbnail generation now happens without user input regardless of whether or not the user wanted a thumbnail or not.
