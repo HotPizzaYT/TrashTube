@@ -1,4 +1,17 @@
 <?php
+if(!file_exists("config.json")) {
+    die("Error loading configuration. Please reinstall.");
+}
+else {
+    $config = json_decode(file_get_contents("config.json"), true);
+    if($config['installed'] === "no") {
+        header("Location: install.php?page=welcome");
+    }
+    $name = $config['name'];
+    $path = $config['path'];
+}
+    ?>
+<?php
 if(isset($_GET["id"]) && file_exists("accounts/data/" . $_GET["id"] . ".json")){
     $channelFound = true;
 } else {
@@ -76,7 +89,13 @@ if(isset($_GET["id"]) && file_exists("accounts/data/" . $_GET["id"] . ".json")){
       if(isset($_SESSION["username"]) && $_SESSION["username"] === $jsonD["username"]){
             $edit = "<a href='accounts/about.php'>(Edit me)</a> ";
       }
-      echo "<p>&nbsp;</p><p><img style='border-radius: 128px;' width='128' height='128' src='" . $jsonD["pfp"] . "' /></p><h1>" . $name . "</h1>\n<p>" . $subs . " subscribers</p><p>Joined " . $joined . "</p><p>" . $edit . "<b>About me:</b><div style='text-align: left; padding: 10px; border-radius: 10px; background-color: #f0f0f0; width: 50%;'>" . $about . "</div></p><h2>" . $name . "'s videos</h2>";
+/*
+      $about = str_ireplace("[channel]", "<a href='channel.php?id=", $about);
+      $about = str_ireplace("[/channel]", "' /></a>", $about);
+      */
+      $id = $_GET['id'];
+  //    echo "";
+      echo "<p>&nbsp;</p><p><img style='border-radius: 128px;' width='128' height='128' src='avatar.php?id=$id' /></p><h1>" . $name . "</h1>\n<p>" . $subs . " subscribers</p><p>Joined " . $joined . "</p><p>" . $edit . "<b>About me:</b><div style='text-align: left; padding: 10px; border-radius: 10px; background-color: #f0f0f0; width: 50%;'>" . $about . "</div></p><h2>" . $name . "'s videos</h2>";
 
       // $data = json_decode($jsonContents, true);
       for($x = 0; $x < $userVideoCount; $x++){
@@ -98,6 +117,7 @@ if(isset($_GET["id"]) && file_exists("accounts/data/" . $_GET["id"] . ".json")){
       echo "<h1>Oops! That channel doesn't exist</h1>";
  }
  ?>
+<meta property='og:image'  content='image.php?id=<?php echo($id); ?>'>
 <p><a href="index.php">Back to videos</a></p>
     </center>
     <font color="#808080">Copyright &copy; HxOr1337/(*DripDog*) 2021 - <?php echo date("Y"); ?></font>
