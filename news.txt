@@ -1,4 +1,4 @@
-Welcome to HxTT news. This is version 1.4, and even though it might not have that many changes, they are big changes for sure.
+Welcome to HxTT news. This is version 1.6, and even though it might not have that many changes, they are big changes for sure.
 
 Modified files:
 
@@ -6,6 +6,11 @@ upload.php
 index.php
 news.txt
 view.php
+location.php
+search.php
+accounts/*
+channels.php
+channel.php
 
 Fixed a possible exploit in view.php. That means DO NOT USE THE OLDER VERSIONS!
 
