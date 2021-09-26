@@ -11,7 +11,7 @@ $dir = "ids/";
             $jsonContents = file_get_contents("ids/" . $jsonFile);
             $data = json_decode($jsonContents, true);
              $title = htmlspecialchars($data["title"]);
-          if($data['location'] === $_GET['q']) {
+          if(@$data['location'] === @$_GET['q']) {
             if(file_exists("thb/" . $id . ".jpg")){
 
                 // Changed where link goes!
