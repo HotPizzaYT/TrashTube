@@ -1,7 +1,19 @@
 <?php
 session_start();
 ?>
-
+<?php
+if(!file_exists("config.json")) {
+    die("Error loading configuration. Please reinstall.");
+}
+else {
+    $config = json_decode(file_get_contents("config.json"), true);
+    if($config['installed'] === "no") {
+        header("Location: install.php?page=welcome");
+    }
+    $name = $config['name'];
+    $path = $config['path'];
+}
+    ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -110,6 +122,7 @@ function generateVideoID($length = 16){
         $ext = $extension[$end];
         // echo $ext;
         $filetype = explode("/", $mime);
+        $ext = strtolower($ext);
         
         // Insert all supported video types.
 
@@ -129,7 +142,9 @@ function generateVideoID($length = 16){
         $_POST["location"] = "Not set";
     }
     if($isConfirmedVideo){
-    $path = "videos/";
+        $vidid = generateVideoID(20);
+        mkdir("videos/" . $vidid);
+    $path = "videos/" . $vidid . "/";
     $path = $path . basename( $_FILES['video']['name']);
 
     // $comments = array();
@@ -178,12 +193,16 @@ function generateVideoID($length = 16){
         // Function to generate thumbnail!
         // thumbRequest($videoId);
         // Purposely error so we can run a script immediately
+     //   $jscode = '""' . $gurl;
         $th = ". <img src='purposeerror.png' onerror='fetch(\"" . $gurl . "\")' alt='Generated a thumbnail.' />";
-        }
+     //   $dir = $_SERVER['HTTP_HOST'] . dirname(__FILE__);
         
-
+        }
+     // 
+       $haxxunknown = @file_get_contents(@$dir . "/" . @$gurl);
             echo "Video uploaded <a href='view.php?id=". $videoId . "'>here</a>" ;
             echo $th;
+       //   header("Location: view.php?id=". $videoId);
         } else{
             echo "There was an error uploading the file, please try again!";
         }
