@@ -1,4 +1,15 @@
-<?PHP
+<?php
+if(!file_exists("config.json")) {
+    die("Error loading configuration. Please reinstall.");
+}
+else {
+    $config = json_decode(file_get_contents("config.json"), true);
+    if($config['installed'] === "no") {
+        header("Location: install.php?page=welcome");
+    }
+    $name = $config['name'];
+    $path = $config['path'];
+}
 echo "Test";
 $x = (isset($_GET["vid"]) && isset($_GET["cid"]) && isset($_GET["act"]));
 
