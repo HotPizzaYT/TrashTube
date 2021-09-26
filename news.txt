@@ -1,20 +1,12 @@
-Welcome to HxTT news. This is version 1.6, and even though it might not have that many changes, they are big changes for sure.
+Welcome to HxTT news. This is version 1.5, this added a few useful changes!
 
 Modified files:
 
 upload.php
-index.php
 news.txt
 view.php
 location.php
-search.php
-accounts/*
-channels.php
-channel.php
 
-this is a GIANORMOUS overhaul. Try to find all the new features!
+Fixed a lot of PHP Errors in the files (upload.php, view.php, and location.php)
 
-Fixed a possible exploit in view.php. That means DO NOT USE THE OLDER VERSIONS!
-
-Thumbnail generation now happens without user input regardless of whether or not the user wanted a thumbnail or not.
-This can be turned off in upload.php.
+Allowed multiple videos of the same filename to be uploaded
