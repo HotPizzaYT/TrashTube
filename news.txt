@@ -1,4 +1,4 @@
-Welcome to HxTT news. This is version 1.5, this added a few useful changes!
+Welcome to HxTT news. This is version 1.7, this added a few useful changes!
 
 Modified files:
 
