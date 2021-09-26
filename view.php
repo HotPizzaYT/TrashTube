@@ -291,7 +291,7 @@ if(file_exists("ids/" . $_GET["id"] . ".json")){
     
     . $views . " views<br /><button onclick='" . $lfun . "'>Like</button> - <button onclick='" . $dlfun . "'>Dislike</button></div><b>Uploader:</b> " . $uploader . "<br /><b>Location:</b> <a href='location.php?q=$loc'>" . $loc . "</a><br /><b>Description:</b> <br />" . $vd;
     echo $htmlcontent;
-    if($_SESSION["username"] === htmlspecialchars($jsonD["uploader"])) {
+    if(@$_SESSION["username"] === htmlspecialchars($jsonD["uploader"])) {
         $studid = $_GET["id"];
         echo("<form action='studio/delete_video.php' method='POST'><input type='text' hidden style='display:none;' name='id' value='$studid'><input type='submit' value='Delete Video'></form>");
     }
